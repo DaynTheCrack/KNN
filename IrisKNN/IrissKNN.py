@@ -3,8 +3,7 @@
 ############################################
 
 import csv # import de la bibliothèque 'csv'
-from math import sqrt
-from turtle import pensize # import du module 'sqrt' de la lib 'maths' 
+from math import sqrt # import du module 'sqrt' de la lib 'maths' 
 
 #############################################
 
