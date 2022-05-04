@@ -13,7 +13,6 @@ path = "PY\TP\KNN\IrisKNN\iris.csv" # chemin d'accès fichier csv
 fichier = open(path,"r") # ouverture du fichier CSV 
 Iris = list(csv.DictReader(fichier,delimiter=",")) # création d'une liste en transformant le fichier en liste
 
-print(Iris[0]) # première iris (DEBUG)
 
 """Validation de la table iris str to float"""
 
@@ -23,7 +22,6 @@ for fleur in Iris: # on prend le dict de chaque fleur
     for val in valeurs: # pour chaque dans "valeurs"
         fleur[val] = float(fleur[val]) # tranformation de str ==> float
 
-print(Iris[0]) # (DEBUG)
 
 def stats_fleur(liste_fleurs, type_fleur):
     """Extrait les statistiques sous forme de tuple longueur, largeur etc..."""
@@ -46,15 +44,12 @@ setosa = stats_fleur(Iris,"Iris-setosa")
 versi = stats_fleur(Iris,"Iris-versicolor")
 virgi = stats_fleur(Iris,"Iris-virginica")
 
-print(type(setosa)) # (DEBUG)
 
 def myst():
     """Création d'une def qui contient la question est retourne le résultat finale"""
     largeurPetale = float(input("Taille de la largeur de la pétale:\n>>>"))
     longueurPetale = float(input("Taille de la longueur de la pétale:\n>>>"))
     return largeurPetale, longueurPetale
-
-print(myst()) # (DEBUG)
 
 def distance(A, B):
     """Création d'une def qui permet de claculer
@@ -77,7 +72,6 @@ for fleur in Iris: # pour chaque fleur dans la liste 'iris'
     fleur["distance"] = distance(WLiris,point) # ajout d'une clef 'distance' pour valeur un tuple de la premiere et deuxième valeur
     iris_distance.append(fleur) # on ajoute tout dans la nouvelle liste
 
-print(iris_distance) # (DEBUG)
 
 def tri_distance(tab):
     """Création d'une def qui permet de récupérer la clef 'distance'"""
@@ -93,7 +87,6 @@ def fleur(tab, k):
 
     temp = tab[:k] # création d'une var temp qui prend l'ensemble des valeurs de la liste jusqu'a 'k'
 
-    print(temp)
 
     espece = [] # les especes des k plus proches voisins 
     for fleur in temp:
@@ -101,12 +94,9 @@ def fleur(tab, k):
 
     return espece 
 
-print(fleur(iris_distance, 10)) # (DEBUG)
 
 """Compter le nombre d'occurence"""
-voisins = fleur(iris_distance, int(input("Valeur de 'K'\n>>>"))) # choix de la valeur du facteur K
-
-print(voisins)
+voisins = fleur(iris_distance_tri, int(input("Valeur de 'K'\n>>>"))) # choix de la valeur du facteur K
 
 seto = 0 # mise à zéro des vars
 versi = 0
@@ -126,8 +116,6 @@ typeFleursK = { # création d'un dictionnaire avec la somme des 'k' plus proche 
     "Iris-virginica" : virgi,
 }
 
-print(typeFleursK)
-
 ValueMax = 0 # la valeur max de présence du type d'iris
 TypeMax = "" # le type de l'iris max
 for key,element in typeFleursK.items(): # on cherche le max
@@ -139,4 +127,3 @@ print("L'iris prédis est " + TypeMax + " avec pour somme des k plus proches voi
 
 
     
-
