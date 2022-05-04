@@ -1,4 +1,5 @@
 """Création de l'algo KNN pour la liste des IRIS"""
+"""/!\ pensez à bien changer le 'path' """
 ############################################
 
 import csv # import de la bibliothèque 'csv'
