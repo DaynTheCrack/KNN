@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt # import de la lib 'pyplot'
 
 ########################################
 
-path = "PY\TP\KNNdiabete\diabete.csv" # chemin relatif du fichier csv
+path = "PY\TP\KNN\DiabeteKNN\diabete.csv" # chemin relatif du fichier csv
 
 fichier = open(path,"r") # ouverture du fichier en "read"
 patients = list(csv.DictReader(fichier,delimiter=",")) # on tranforme le fichier en liste
@@ -26,11 +26,32 @@ keys = [ # liste des clefs
 for patient in patients: # pour chaque patient dans la liste
     for key in keys: # pour chaque clef
         patient[key] = float(patient[key]) # convertion str to float 
-print(patients)
+
+print(patients) # (DEBUG)
 
 diabetique = [] # création de la liste des diabétiques
 nondiabetique = [] # création de la liste des nondiabetiques
 
-"""for patient in patients: # pour chaque patient dans la liste
-    if patient[]"""
+for patient in patients: # pour chaque patient dans la liste
+    if patient[' Class variable (0 or 1)'] == 1: # si le patient est diabetique on ajoute aux diabetiques
+        diabetique.append(patient) # ajout
+    else: # sinon on ajoute à la liste des non diabetiques
+        nondiabetique.append(patient) # ajout
 
+print(diabetique) # (DEBUG)
+print("\n")
+print(nondiabetique)
+
+PregDiabete = 0 # mise à zéro des valeurs
+PregNonDiabete = 0
+
+for patient in diabetique: # calcul de la moyenne
+    PregDiabete += patient[' Number of times pregnant']
+PregDiabete = PregDiabete / len(diabetique)
+
+for patient in nondiabetique: # calcule de la moyenne
+    PregNonDiabete += patient[' Number of times pregnant']
+PregNonDiabete = PregNonDiabete / len(nondiabetique)
+
+print(PregDiabete)
+print(PregNonDiabete)
