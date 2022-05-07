@@ -135,7 +135,7 @@ for i in range(len(keys)-1): # pour chaque indice de keys (1 par 1)
 
         for z in range(len(diabetique)): # boucle sur longueur de la liste diabetique
             
-            xDiabete.append(diabetique[z][keys[i]]) # on ajoute pour chaque menbre de diabetique la valeur de ma clef[i]
+            xDiabete.append(diabetique[z][keys[i]]) # on ajoute pour chaque menbre de diabetique la valeur de la clef[i]
             yDiabete.append(diabetique[z][keys[j]])
 
         for z in range(len(nondiabetique)): # idem avec non diabetique
