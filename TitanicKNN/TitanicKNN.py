@@ -21,6 +21,7 @@ keys = [ # liste des clefs
     "Parch",
     "Fare",
     "Embarked",
+    "Survived",
 ]
 
 def deleteEmpty(dictionnaire,indice,keys):
@@ -64,7 +65,10 @@ for passager in passagers: # pour chaque passager dans la liste on associe une v
     for key in keys:
         passager[key] = float(passager[key])
 
+    
+    """Equilibre des amplitudes"""
 
+    
 def mystere():
     """Création du billet mystère"""
     PC = float(input("Pclass :\n>>>")) # on renseigne les variables
@@ -92,8 +96,8 @@ passagers_distance = list(passagers) # nouvelle liste avec l'ajout des distances
 for passager in passagers_distance: # création et mise à zéro d'une nouvelle clef
     passager["distance"] = 0
 
-for i in range(len(keys)): # pour chaque indice principale
-    for j in range(i+1,len(keys)): # comparaison avec indice secondaire
+for i in range(len(keys)-1): # pour chaque indice principale
+    for j in range(i+1,len(keys)-1): # comparaison avec indice secondaire
         PointMyst = (passagerMystere[i],passagerMystere[j]) # coordonnées du passager mystère
         for passager in passagers_distance: # pour chaque passager de la liste
             point = (passager[keys[i]], passager[keys[j]]) # point du passager déjà connu
@@ -104,8 +108,89 @@ def tri_distance(tab): # définition de la clé de tri
 
 passagers_distance_tri = sorted(passagers_distance,key=tri_distance) # tri de la liste des distances
 
+def TitanicPassagers(tab,k): # définition qui va déterminer les K plus proches voisins
 
+    temp = tab[:k] # on coupe la liste à K
 
+    SurvivedTitanic = [] # création de la liste des passagers récupérés
+    for passager in temp: # pour chaque passager présent dans la liste 'temp' on ajoute à la nouvelle liste crée
+        SurvivedTitanic.append(passager)
+
+    return SurvivedTitanic # renvoie de la liste
+
+"""Compter le nombre d'occurence de voisins"""
+
+voisins = TitanicPassagers(passagers_distance_tri,int(input("Veuillez rentrer une valeur de 'K' !\n>>>")))
+
+Survived = 0 # déclaration des vars et mise à zéro
+Dead = 0
+
+for passager in voisins:
+    if passager["Survived"] == 1:
+        Survived += 1
+    else:
+        Dead += 1
     
+SurvivedList = { # création d'un dictionnaire pour ranger les valeurs par type
+    "survivant" : Survived,
+    "mort" : Dead,
+}
+
+ValueMax = 0 # déclaration des vars
+SurDead = ""
+
+for key,element in SurvivedList.items():
+    if element > ValueMax:
+        ValueMax = element
+        SurDead = key
+
+print("Le passager est déclaré :",SurDead,"avec pour 'K' plus proche voisins :",ValueMax)
+
+
+##############################################################################
+#                                  Graph                                     #
+##############################################################################
+
+survivant = [] # création de la liste des survivants
+nonsurvivant = [] # création de la liste des nonsurvivants
+
+for passager in passagers: # pour chaque passager dans la liste
+    if passager["Survived"] == 1: # si le passager est un survivant on l'ajoute aux survivants
+        survivant.append(passager)
+    else: # sinon on l'ajoute aux nonsurvivants
+        nonsurvivant.append(passager)
+
+for i in range(len(keys)-1): # pour chaque indice de key (1 par 1)
+
+    xSurvivant = [] # déclaration et mise à zéro des listes
+    ySurvivant = []
+    xNonSurvivant = []
+    yNonSurvivant = []
+
+    for j in range(i+1,len(keys)-1):
+
+        for z in range(len(survivant)):
+
+            xSurvivant.append(survivant[z][keys[i]])
+            ySurvivant.append(survivant[z][keys[j]])
+
+        for z in range(len(nonsurvivant)):
+
+            xNonSurvivant.append(nonsurvivant[z][keys[i]])
+            yNonSurvivant.append(nonsurvivant[z][keys[j]])
+
+        xPassagerMyst = passagerMystere[i]
+        yPassagerMyst = passagerMystere[j]
+
+        plt.plot(xSurvivant,ySurvivant,"ro",color="blue",label="Survivant")
+        plt.plot(xNonSurvivant,yNonSurvivant,"ro",color="red",label="Non survivant")
+        plt.plot(xPassagerMyst,yPassagerMyst,"ro",color="black",label="Patient mystère")
+        plt.xlabel(str(keys[i]))
+        plt.ylabel(str(keys[j]))
+        plt.legend()
+
+        plt.show()
+
+##############################################################################    
 
 
