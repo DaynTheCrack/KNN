@@ -2,7 +2,7 @@
 
 ########################################
 
-import math
+import math # import de la lib 'math'
 import csv # import de la lib 'csv'
 from matplotlib import pyplot as plt # import de la lib 'pyplot'
 
@@ -135,7 +135,7 @@ for i in range(len(keys)-1): # pour chaque indice de keys (1 par 1)
 
         for z in range(len(diabetique)): # boucle sur longueur de la liste diabetique
             
-            xDiabete.append(diabetique[z][keys[i]]) # on ajoute pour chaque menbre de diabetique la valeur de la clef[i]
+            xDiabete.append(diabetique[z][keys[i]]) # on ajoute pour chaque menbre de diabetique la valeur de ma clef[i]
             yDiabete.append(diabetique[z][keys[j]])
 
         for z in range(len(nondiabetique)): # idem avec non diabetique
@@ -143,8 +143,33 @@ for i in range(len(keys)-1): # pour chaque indice de keys (1 par 1)
             xNonDiabete.append(nondiabetique[z][keys[i]])
             yNonDiabete.append(nondiabetique[z][keys[j]])
         
-        plt.scatter(xDiabete,yDiabete, c = 'red') # diabetique
-        plt.scatter(xNonDiabete,yNonDiabete, c = 'blue') # non diabetique
+        xPatient = NewPatient[i] # point mystère du patient (coordonnées (x,y))
+        yPatient = NewPatient[j]
+
+        plt.plot(xDiabete,yDiabete,"ro", color = 'red', label="Diabétique") # diabetique
+        plt.plot(xNonDiabete,yNonDiabete,"ro", color = 'blue', label="Non diabetique") # non diabetique
+        plt.plot(xPatient,yPatient,"ro",color="black",label="Patient mystère")
+        plt.xlabel(str(keys[i])) # groupe à comparer de x à y (légende)
+        plt.ylabel(str(keys[j]))
+        plt.legend() # on fait la légende
+        
+        
         plt.show() # affichage
 
 ##############################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
