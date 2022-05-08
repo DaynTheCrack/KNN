@@ -67,8 +67,11 @@ for passager in passagers: # pour chaque passager dans la liste on associe une v
 
     
     """Equilibre des amplitudes"""
+#########################################
 
+# Laisser vide
     
+########################################
 def mystere():
     """Création du billet mystère"""
     PC = float(input("Pclass :\n>>>")) # on renseigne les variables
