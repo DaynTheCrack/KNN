@@ -2,8 +2,6 @@
 
 ##########################################
 
-from cProfile import label
-from turtle import color, colormode
 from matplotlib import pyplot as plt # import du module 'pyplot' de la lib matplotlib
 import math # import de la lib "math"
 import csv # import de la lib "csv"
