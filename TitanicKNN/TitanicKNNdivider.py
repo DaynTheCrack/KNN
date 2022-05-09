@@ -58,36 +58,36 @@ Association_Em = {
 for passager in passagers: # pour chaque passager dans la liste on associe une valeur à une lettre
 
     """Embarked"""
-    for key in Association_Em.keys(): # 
-        if key == passager["Embarked"]:
-            passager["Embarked"] = float(Association_Em[key])
+    for key in Association_Em.keys(): # on associe chaque lettre à une valeur défine dans 'Associacia_Em'
+        if key == passager["Embarked"]: # on compare la letre aux clefs 
+            passager["Embarked"] = float(Association_Em[key]) # on ajoute la valeur
 
 
     """Str to float"""
-    for key in keys:
-        passager[key] = float(passager[key])
+    for key in keys: # pour chaque clef
+        passager[key] = float(passager[key]) # transformation en float de l'ensemble des valeurs de la colone
 
     
 """Equilibre des amplitudes"""
 
-diviseurs = []
+diviseurs = [] # liste des diviseurs dans l'ordre des clefs déjà définie dans 'keys'
 
-def clef(tab):
-    return tab[key]
+def clef(tab): # clef de tri qui change en fonction du param key défini dans la boucle for d'après
+    return tab[key] # on renvoie la liste de la colone associée à la clef
 
-for key in keys:
-    minimum = min(passagers,key=clef)[key]
-    maximum = max(passagers,key=clef)[key]
-    diviseur = maximum - minimum
-    diviseurs.append(diviseur)
-    for passager in passagers:
-        passager[key] = passager[key] / diviseur
+for key in keys: # pour chaque clef présent dans 'keys'
+    minimum = min(passagers,key=clef)[key] # on cherche la valeur du min de la clef
+    maximum = max(passagers,key=clef)[key] # on cherche la valeur max de la clef
+    diviseur = maximum - minimum # on soustraie pour trouver le diviseur commum
+    diviseurs.append(diviseur) # on ajoute le diviseur à la liste des diviseurs
+    for passager in passagers: # pour caque colone de passager
+        passager[key] = passager[key] / diviseur # on divise sa valeur par le diviseur associé
 
 
 def mystere():
     """Création du billet mystère"""
     PC = float(input("Pclass :\n>>>")) / diviseurs[0]# on renseigne les variables
-    SEX = float(input("SEX :\n>>>")) / diviseurs[1]
+    SEX = float(input("SEX :\n>>>")) / diviseurs[1] # on les divise par le diviseur calculé pour chaque clef associé
     AGE = float(input("AGE :\n>>>")) / diviseurs[2]
     SS = float(input("SibSp :\n>>>")) / diviseurs[3]
     PAR = float(input("Parch :\n>>>")) / diviseurs[4]
@@ -135,15 +135,15 @@ def TitanicPassagers(tab,k): # définition qui va déterminer les K plus proches
 
 """Compter le nombre d'occurence de voisins"""
 
-voisins = TitanicPassagers(passagers_distance_tri,int(input("Veuillez rentrer une valeur de 'K' !\n>>>")))
+voisins = TitanicPassagers(passagers_distance_tri,int(input("Veuillez rentrer une valeur de 'K' !\n>>>"))) # calcul des K plus proche voisins
 
 Survived = 0 # déclaration des vars et mise à zéro
 Dead = 0
 
-for passager in voisins:
+for passager in voisins: # si le passager et dans 'voisins' on incrémente 'Survived' de 1
     if passager["Survived"] == 1:
         Survived += 1
-    else:
+    else: # dans le cas inverse on incrémente 'Dead' de 1
         Dead += 1
     
 SurvivedList = { # création d'un dictionnaire pour ranger les valeurs par type
@@ -154,12 +154,12 @@ SurvivedList = { # création d'un dictionnaire pour ranger les valeurs par type
 ValueMax = 0 # déclaration des vars
 SurDead = ""
 
-for key,element in SurvivedList.items():
-    if element > ValueMax:
-        ValueMax = element
-        SurDead = key
+for key,element in SurvivedList.items(): # calcul de la valeur de présence la plus grande
+    if element > ValueMax: # si la valeur de la clef est plus grande que 'ValueMax'
+        ValueMax = element # 'ValueMax' = valeur de la clef => element
+        SurDead = key # Mort ou Survivant on prend la valeur de la clef la plus grande et on changer la valeur de 'SurDead' par la clef de la valeur supérieur
 
-print("Le passager est déclaré :",SurDead,"avec pour 'K' plus proche voisins :",ValueMax)
+print("Le passager est déclaré :",SurDead,"avec pour 'K' plus proche voisins :",ValueMax) # message de fin
 
 
 ##############################################################################
@@ -182,29 +182,29 @@ for i in range(len(keys)-1): # pour chaque indice de key (1 par 1)
     xNonSurvivant = []
     yNonSurvivant = []
 
-    for j in range(i+1,len(keys)-1):
+    for j in range(i+1,len(keys)-1): # pour chaque indice secondaire (1 par 1)
 
-        for z in range(len(survivant)):
+        for z in range(len(survivant)): # boucle sur longueur de la liste des survivants
 
-            xSurvivant.append(survivant[z][keys[i]])
+            xSurvivant.append(survivant[z][keys[i]]) # ajout à la liste des coordonnées survivants l'ensemble des points (x = keys[i] et y = keys[j])
             ySurvivant.append(survivant[z][keys[j]])
 
-        for z in range(len(nonsurvivant)):
+        for z in range(len(nonsurvivant)): # boucle sur longueur de la liste des nonsurvivants
 
-            xNonSurvivant.append(nonsurvivant[z][keys[i]])
+            xNonSurvivant.append(nonsurvivant[z][keys[i]]) # ajout à la liste des coordonnées non survivants l'ensemble des points (x = keys[i] et y = keys[j])
             yNonSurvivant.append(nonsurvivant[z][keys[j]])
 
-        xPassagerMyst = passagerMystere[i]
+        xPassagerMyst = passagerMystere[i] # coordonnées des points du passager mystère
         yPassagerMyst = passagerMystere[j]
 
-        plt.plot(xSurvivant,ySurvivant,"ro",color="blue",label="Survivant")
-        plt.plot(xNonSurvivant,yNonSurvivant,"ro",color="red",label="Non survivant")
-        plt.plot(xPassagerMyst,yPassagerMyst,"ro",color="black",label="Patient mystère")
-        plt.xlabel(str(keys[i]))
+        plt.plot(xSurvivant,ySurvivant,"ro",color="blue",label="Survivant") # push des points survivant
+        plt.plot(xNonSurvivant,yNonSurvivant,"ro",color="red",label="Non survivant") # push des points non survivants
+        plt.plot(xPassagerMyst,yPassagerMyst,"ro",color="black",label="Patient mystère") #push du point passager mystère
+        plt.xlabel(str(keys[i])) # ajout des label à la légende
         plt.ylabel(str(keys[j]))
-        plt.legend()
+        plt.legend() # création de la légende
 
-        plt.show()
+        plt.show() # affichage
 
 ##############################################################################    
 
